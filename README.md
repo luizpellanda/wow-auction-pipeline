@@ -9,11 +9,11 @@ snapshots as they are published so the historical data actually exists.
 
 ## Status
 
-Work in progress. Currently building the collector.
+Paused — building fundamentals first (HTTP, APIs, persistence).
 
 - [x] Repository setup
-- [x] Blizzard API authentication (OAuth2 client credentials)
-- [ ] Download and store a raw snapshot
+- [x] Blizzard API authentication (OAuth2 client credentials) — validated via curl
+- [ ] Python implementation of the collector
 - [ ] Hourly scheduling
 - [ ] Parse into PostgreSQL
 - [ ] REST API for price history
