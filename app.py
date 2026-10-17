@@ -4,6 +4,7 @@ import requests
 from dotenv import load_dotenv
 
 TOKEN_URL = 'https://oauth.battle.net/token'
+AUCTIONS_URL = 'https://us.api.blizzard.com/data/wow/auctions/commodities'
 
 load_dotenv()
 
@@ -23,3 +24,12 @@ print(f'Keys: {token_data.keys()}')
 print(f'Expires in: {token_data["expires_in"]}')
 
 access_token = token_data['access_token']
+
+auctions_response = requests.get(
+    AUCTIONS_URL,
+    headers={'Authorization': f'Bearer {access_token}'},
+    params={'namespace': 'dynamic-us', 'locale': 'en_US'},
+)
+
+print(f'Auctions status: {auctions_response.status_code}')
+print(f'Auctions size: {len(auctions_response.content)} bytes')
