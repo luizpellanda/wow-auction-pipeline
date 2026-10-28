@@ -1,10 +1,12 @@
 import os
+from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
 
 TOKEN_URL = 'https://oauth.battle.net/token'
 AUCTIONS_URL = 'https://us.api.blizzard.com/data/wow/auctions/commodities'
+RAW_DIR = Path('data/raw')
 
 load_dotenv()
 
@@ -33,3 +35,12 @@ auctions_response = requests.get(
 
 print(f'Auctions status: {auctions_response.status_code}')
 print(f'Auctions size: {len(auctions_response.content)} bytes')
+
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+raw_path = RAW_DIR / 'commodities.json'
+
+with open(raw_path, 'wb') as f:
+    f.write(auctions_response.content)
+
+print(f'Saved to: {raw_path}')
+
