@@ -1,5 +1,6 @@
-"""Download the current WoW commodities auction snapshot and save it raw to disk."""
+"""Download the current WoW commodities auction snapshot and save it gzip-compressed to disk."""
 
+import gzip
 import os
 from email.utils import parsedate_to_datetime
 from pathlib import Path
@@ -43,11 +44,11 @@ snapshot_time = parsedate_to_datetime(last_modified)
 snapshot_stamp = snapshot_time.strftime('%Y%m%dT%H%M%SZ')
 print(f'Snapshot: {snapshot_stamp}')
 
-# Save the raw bytes untouched
+# Save the raw bytes, gzip-compressed (lossless)
 RAW_DIR.mkdir(parents=True, exist_ok=True)
-raw_path = RAW_DIR / f'commodities_{snapshot_stamp}.json'
+raw_path = RAW_DIR / f'commodities_{snapshot_stamp}.json.gz'
 
-with open(raw_path, 'wb') as f:
+with gzip.open(raw_path, 'wb') as f:
     f.write(auctions_response.content)
 
 print(f'Saved to: {raw_path}')
