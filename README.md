@@ -46,10 +46,11 @@ python3 app.py
 - [x] Gzip compression
 - [x] Error handling
 - [x] Refactor into functions
-- [ ] Hourly scheduling
+- [x] Hourly scheduling
 - [ ] Parse into PostgreSQL
 - [ ] REST API for price history
 
 ## Stack
 
-Python, `requests`, `python-dotenv`. PostgreSQL and FastAPI planned.
+Python, `requests`, `python-dotenv`. Runs hourly via cron on an Ubuntu VPS (DigitalOcean).
+PostgreSQL and FastAPI planned.
