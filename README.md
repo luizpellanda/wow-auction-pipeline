@@ -13,6 +13,8 @@ captures those snapshots as they are published so the historical data actually e
 - Downloads the current commodities snapshot.
 - Names the file by Blizzard's publication time, so re-running never creates duplicates.
 - Saves the raw data gzip-compressed to `data/raw/`.
+- Loads an hourly summary per item (lowest price, total quantity) into PostgreSQL.
+- Fetches item names from the Blizzard Item API.
 
 ## Setup
 
@@ -32,10 +34,17 @@ BLIZZARD_CLIENT_ID=your_client_id_here
 BLIZZARD_CLIENT_SECRET=your_client_secret_here
 ```
 
+Create the database and tables (requires PostgreSQL):
+
+```bash
+createdb wow
+psql wow -f schema.sql
+```
+
 Run:
 
 ```bash
-python3 app.py
+./run.sh
 ```
 
 ## Status
@@ -47,10 +56,12 @@ python3 app.py
 - [x] Error handling
 - [x] Refactor into functions
 - [x] Hourly scheduling
-- [ ] Parse into PostgreSQL
+- [x] Parse into PostgreSQL
+- [x] Item names
 - [ ] REST API for price history
+- [ ] Web UI with price charts
 
 ## Stack
 
-Python, `requests`, `python-dotenv`. Runs hourly via cron on an Ubuntu VPS (DigitalOcean).
-PostgreSQL and FastAPI planned.
+Python, `requests`, `python-dotenv`, `psycopg`, PostgreSQL.
+Runs hourly via cron on an Ubuntu VPS (DigitalOcean). FastAPI planned.
