@@ -2,16 +2,11 @@
 
 import psycopg
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 
 DATABASE_URL = 'postgresql:///wow'
 
 app = FastAPI()
-
-
-@app.get('/')
-def home():
-    """Say hello, to check the API is running."""
-    return {'message': 'Hello from the WoW auction API'}
 
 
 @app.get('/items/{item_id}')
@@ -66,3 +61,6 @@ def search_items(search: str):
         results.append({'item_id': row[0], 'name': row[1]})
     return results
 
+
+# The website (static/index.html and friends). Mounted last so the API routes above win.
+app.mount('/', StaticFiles(directory='static', html=True), name='site')

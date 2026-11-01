@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f6f6f4;
+  color: #222;
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+h1 {
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  margin-top: 0;
+  color: #666;
+}
+
+#search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#results {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 24px;
+}
+
+#results li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: pointer;
+}
+
+#results li:hover {
+  background: #ecebe6;
+}
+
+#chart-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+}

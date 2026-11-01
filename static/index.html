@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WoW Auction Prices</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <main>
+    <h1>WoW Auction Prices</h1>
+    <p class="subtitle">Hourly price history of the US commodities auction house.</p>
+
+    <input id="search" type="search" placeholder="Search an item, e.g. ore" autocomplete="off">
+    <ul id="results"></ul>
+
+    <section id="chart-section" hidden>
+      <h2 id="item-name"></h2>
+      <canvas id="chart"></canvas>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
