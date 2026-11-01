@@ -50,3 +50,19 @@ def get_item_history(item_id: int):
             'total_quantity': row[2],
         })
     return history
+
+
+@app.get('/items')
+def search_items(search: str):
+    """Return up to 20 items whose name contains the search text."""
+    with psycopg.connect(DATABASE_URL) as conn:
+        rows = conn.execute(
+            'SELECT item_id, name FROM items WHERE name ILIKE %s ORDER BY name LIMIT 20',
+            (f'%{search}%',),
+        ).fetchall()
+
+    results = []
+    for row in rows:
+        results.append({'item_id': row[0], 'name': row[1]})
+    return results
+
