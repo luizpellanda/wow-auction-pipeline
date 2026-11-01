@@ -66,6 +66,7 @@ def save_summary(conn, snapshot_time, summary):
 
 def main():
     """Load every snapshot in data/raw that is not in the database yet."""
+    loaded_count = 0
     with psycopg.connect(DATABASE_URL) as conn:
         for path in sorted(RAW_DIR.glob('*.json.gz')):
             snapshot_time = snapshot_time_from_path(path)
@@ -76,6 +77,9 @@ def main():
             summary = summarize_auctions(auctions)
             row_count = save_summary(conn, snapshot_time, summary)
             print(f'Saved {row_count} items for {snapshot_time}')
+            loaded_count += 1
+
+    print(f'Loader: {loaded_count} new snapshot(s) loaded')
 
 
 if __name__ == '__main__':
