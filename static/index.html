@@ -4,22 +4,71 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WoW Auction Prices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <main>
+  <header>
     <h1>WoW Auction Prices</h1>
-    <p class="subtitle">Hourly price history of the US commodities auction house.</p>
+    <p class="subtitle">Hourly price history of the US commodities auction house</p>
+  </header>
 
-    <input id="search" type="search" placeholder="Search an item, e.g. ore" autocomplete="off">
-    <ul id="results"></ul>
+  <main>
+    <div class="search-box">
+      <input id="search" type="search" placeholder="Search an item, e.g. ore, herb, cloth..." autocomplete="off">
+      <ul id="results"></ul>
+    </div>
 
-    <section id="chart-section" hidden>
-      <h2 id="item-name"></h2>
-      <canvas id="chart"></canvas>
+    <p id="empty-state" class="empty-state">Search for an item to see how its price changed over time.</p>
+
+    <section id="item-panel" hidden>
+      <div class="item-header">
+        <h2 id="item-name"></h2>
+        <div id="ranges" class="ranges">
+          <button data-days="1">1d</button>
+          <button data-days="5">5d</button>
+          <button data-days="10">10d</button>
+          <button data-days="30" class="active">30d</button>
+          <button data-days="365">All</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">Current price</span>
+          <span id="stat-current" class="stat-value"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Change</span>
+          <span id="stat-change" class="stat-value"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Lowest</span>
+          <span id="stat-low" class="stat-value"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Highest</span>
+          <span id="stat-high" class="stat-value"></span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Listed now</span>
+          <span id="stat-quantity" class="stat-value"></span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <p id="no-data" class="no-data" hidden>No prices in this period yet.</p>
+        <canvas id="chart"></canvas>
+      </div>
     </section>
   </main>
+
+  <footer>
+    Data from the Blizzard Game Data API, collected every hour.
+  </footer>
 
   <script src="app.js"></script>
 </body>
