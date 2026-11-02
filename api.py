@@ -1,7 +1,9 @@
 """HTTP API that serves item prices from the database."""
 
+from typing import Annotated
+
 import psycopg
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.staticfiles import StaticFiles
 
 DATABASE_URL = 'postgresql:///wow'
@@ -25,13 +27,14 @@ def get_item(item_id: int):
 
 
 @app.get('/items/{item_id}/history')
-def get_item_history(item_id: int):
-    """Return the item's lowest price and total quantity for every snapshot, oldest first."""
+def get_item_history(item_id: int, days: Annotated[int, Query(ge=1, le=365)] = 30):
+    """Return the item's lowest price and total quantity over the last `days` days, oldest first."""
     with psycopg.connect(DATABASE_URL) as conn:
         rows = conn.execute(
             'SELECT snapshot_time, min_price, total_quantity FROM prices '
-            'WHERE item_id = %s ORDER BY snapshot_time',
-            (item_id,),
+            'WHERE item_id = %s AND snapshot_time >= now() - make_interval(days => %s) '
+            'ORDER BY snapshot_time',
+            (item_id, days),
         ).fetchall()
 
     if not rows:
