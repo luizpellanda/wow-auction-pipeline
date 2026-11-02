@@ -15,6 +15,7 @@ captures those snapshots as they are published so the historical data actually e
 - Saves the raw data gzip-compressed to `data/raw/`.
 - Loads an hourly summary per item (lowest price, total quantity) into PostgreSQL.
 - Fetches item names from the Blizzard Item API.
+- Serves a small FastAPI app: item search, price history endpoints and a web page with charts.
 
 ## Setup
 
@@ -41,10 +42,16 @@ createdb wow
 psql wow -f schema.sql
 ```
 
-Run:
+Collect, load and fetch names (this is what cron runs every hour):
 
 ```bash
 ./run.sh
+```
+
+Start the API and website at http://127.0.0.1:8000:
+
+```bash
+uvicorn api:app --reload
 ```
 
 ## Status
@@ -58,10 +65,12 @@ Run:
 - [x] Hourly scheduling
 - [x] Parse into PostgreSQL
 - [x] Item names
-- [ ] REST API for price history
-- [ ] Web UI with price charts
+- [x] REST API for price history
+- [x] Web UI with price charts
+- [ ] Deploy the website
+- [ ] Crafting recipes (cost of materials)
 
 ## Stack
 
-Python, `requests`, `python-dotenv`, `psycopg`, PostgreSQL.
-Runs hourly via cron on an Ubuntu VPS (DigitalOcean). FastAPI planned.
+Python, `requests`, `python-dotenv`, `psycopg`, PostgreSQL, FastAPI, Chart.js.
+Collection runs hourly via cron on an Ubuntu VPS (DigitalOcean).
