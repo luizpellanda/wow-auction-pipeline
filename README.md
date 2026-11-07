@@ -67,10 +67,10 @@ uvicorn api:app --reload
 - [x] Item names
 - [x] REST API for price history
 - [x] Web UI with price charts
-- [ ] Deploy the website
+- [x] Deploy the website (nginx + systemd)
 - [ ] Crafting recipes (cost of materials)
 
 ## Stack
 
 Python, `requests`, `python-dotenv`, `psycopg`, PostgreSQL, FastAPI, Chart.js.
-Collection runs hourly via cron on an Ubuntu VPS (DigitalOcean).
+Runs on an Ubuntu VPS (DigitalOcean): collection hourly via cron, API under systemd behind nginx.
