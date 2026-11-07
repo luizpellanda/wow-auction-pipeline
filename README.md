@@ -1,5 +1,7 @@
 # wow-auction-pipeline
 
+**Live site: https://hourlyah.com**
+
 A data pipeline that collects hourly auction house snapshots from the
 World of Warcraft API and stores them to build a price history over time.
 
@@ -68,6 +70,7 @@ uvicorn api:app --reload
 - [x] REST API for price history
 - [x] Web UI with price charts
 - [x] Deploy the website (nginx + systemd)
+- [x] Custom domain with HTTPS (Let's Encrypt)
 - [ ] Crafting recipes (cost of materials)
 
 ## Stack
